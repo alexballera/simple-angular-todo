@@ -1,14 +1,29 @@
-<!DOCTYPE HTML>
-<html lang="en" ng-app="app">
-  <body ng-controller="todoController">
-    <form ng-submit="addTask()">
-      <input type="text" ng-model="task" placeholder="Agregar nueva tarea">
-      <input type="submit">
-    </form>
-    <ul> 
-      <li ng-repeat="task in tasks track by $index">{{task}}</li>
-    </ul>
+<!DOCTYPE html>
+<html lang="en" ng-app="todoApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Angular ToDo</title>
+</head>
+<body>
+  <h2>Todo</h2>
+    <div ng-controller="todoController as todoList">
+      <form ng-submit="todoList.addTodo()">
+        <input type="text" ng-model="todoList.todoText" size="30"
+               placeholder="Nueva tarea aquí">
+        <input class="btn-primary" type="submit" value="Añadir">
+      </form>
+      <ol>
+        <li ng-repeat="todo in todoList.todos">
+          <label class="checkbox">
+            <input type="checkbox" ng-model="todo.done">
+            <span class="done-{{todo.done}}">{{todo.text | titleCase}}</span>
+          </label>
+        </li>
+      </uo>
+      <span>{{todoList.remaining()}} tareas de {{todoList.todos.length}} por hacer</span>
+      [ <a href="" ng-click="todoList.archive()">Archivar</a> ]
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
     <script src="js/main.js"></script>
-  </body>
+</body>
 </html>
