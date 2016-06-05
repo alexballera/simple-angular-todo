@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html lang="en" ng-app="app">
+  <body ng-controller="todoController">
+    <form ng-submit="addTask()">
+      <input type="text" ng-model="task" placeholder="Agregar nueva tarea">
+      <input type="submit">
+    </form>
+    <ul> 
+      <li ng-repeat="task in tasks track by $index">{{task}}</li>
+    </ul>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
