@@ -4,7 +4,7 @@ angular.module('todoApp', [])
   todoList.todos = []
 
   todoList.addTodo = function () {
-    todoList.todos.push({text: todoList.todoText, done: false})
+    if (todoList.todoText != '') todoList.todos.push({text: todoList.todoText, done: false})
     todoList.todoText = ''
   }
 

@@ -25,12 +25,7 @@ header{
     }
   }
 }
-.done-true{
-  color: $green;
-}
-.done-false{
-  color: $red;
-}
+
 form{
   width: 100%;
   text-align: center;
@@ -64,6 +59,14 @@ ol{
   font-size: 1.2em;
   @include respond-to(xl) {
       font-size: 1.5em;
+    }
+    & li label {
+      & span.done-true{
+      color: $green;
+      }
+      & span.done-false{
+        color: $red;
+      }
     }
     & span.ng-binding{
       color: lightgray;
