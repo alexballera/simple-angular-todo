@@ -1,10 +1,9 @@
 (function () {
   'use strict'
 
-  angular
+   angular
   .module('todo', [])
   .controller('todoController', todoController)
-  .filter('titleCase', titleCase)
   // .service('todoServices', todoServices)
 
   // function todoController (todoServices) {
@@ -18,6 +17,7 @@
   // }
 
   // function getData () {
+
   function todoController () {
     var vm = this
 
@@ -45,14 +45,6 @@
       angular.forEach(oldTodos, function (todo) {
         if (!todo.done) vm.todos.push(vm)
       })
-    }
-  }
-
-  function titleCase () {
-    return function (text) {
-      if (text != null) {
-        return text.substring(0, 1).toUpperCase() + text.substring(1)
-      }
     }
   }
 })()
