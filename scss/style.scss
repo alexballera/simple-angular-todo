@@ -51,6 +51,9 @@ form{
     @include respond-to(xl) {
       width: 24%;
     }
+    &:hover{
+      background-color: $orange;
+    }
   }
   & input[type=text],
   & input[type=submit]{

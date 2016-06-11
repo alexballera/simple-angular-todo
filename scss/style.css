@@ -441,6 +441,8 @@ form {
     @media screen and (min-width: 64em) {
       form input[type=submit] {
         width: 24%; } }
+    form input[type=submit]:hover {
+      background-color: #FFBB33; }
   form input[type=text], form input[type=submit] {
     box-sizing: border-box;
     padding: 0.2em;
