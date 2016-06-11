@@ -3,7 +3,7 @@
 
    angular
   .module('todo', [])
-  .controller('todoController', todoController)
+  .controller('TodoController', TodoController)
   // .service('todoServices', todoServices)
 
   // function todoController (todoServices) {
@@ -18,7 +18,7 @@
 
   // function getData () {
 
-  function todoController () {
+  function TodoController () {
     var vm = this
 
     vm.todos = []
