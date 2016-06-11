@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="todoApp">
+<html lang="en" ng-app="todo">
 <head>
   <meta charset="UTF-8">
   <title>Angular ToDo</title>
@@ -23,8 +23,9 @@
   <div class="row">
       <form ng-submit="todoList.addTodo()">
         <input type="text" ng-model="todoList.todoText" placeholder="Nueva tarea aquí">
-        <input class="btn-primary" type="submit" value="Añadir">
+        <input class="btn-primary" type="submit" value="Añadir" ng-click="todoList.todoText" >
       </form>
+      <div class="binding">{{todoList.todoText | titleCase}}</div>
       <ol>
           <li ng-repeat="todo in todoList.todos">
             <label class="checkbox">
@@ -38,6 +39,6 @@
   </div>
   </section>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
