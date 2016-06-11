@@ -1,38 +1,46 @@
 (function () {
   'use strict'
 
-  var app = angular.module('todo', [])
-  app.controller('todoController', function () {
-    var $scope = this
-    $scope.todos = []
+  angular
+  .module('todo', [])
+  .controller('todoController', todoController)
+  .filter('titleCase', titleCase)
 
-    $scope.addTodo = function () {
-      if ($scope.todoText != '') $scope.todos.push({text: $scope.todoText, done: false})
-      $scope.todoText = ''
+  function todoController () {
+    var vm = this
+
+    vm.todos = []
+    vm.addTodo = addTodo
+    vm.remaining = remaining
+    vm.archive = archive
+
+    function addTodo () {
+      if (vm.todoText != '') vm.todos.push({text: vm.todoText, done: false})
+      vm.todoText = ''
     }
 
-    $scope.remaining = function () {
+    function remaining () {
       var count = 0
-      angular.forEach($scope.todos, function (todo) {
-        count += todo.done ? 0 : 1
+      angular.forEach(vmvm.todos, function (todo) {
+        count += vmvm.done ? 0 : 1
       })
       return count
     }
 
-    $scope.archive = function () {
-      var oldTodos = $scope.todos
-      $scope.todos = []
+    function archive () {
+      var oldTodos = vm.todos
+      vm.todos = []
       angular.forEach(oldTodos, function (todo) {
-        if (!todo.done) $scope.todos.push(todo)
+        if (!todo.done) vm.todos.push(vm)
       })
     }
-  })
+  }
 
-  app.filter('titleCase', function () {
+  function titleCase () {
     return function (text) {
       if (text != null) {
         return text.substring(0, 1).toUpperCase() + text.substring(1)
       }
     }
-  })
+  }
 })()
