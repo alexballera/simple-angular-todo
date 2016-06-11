@@ -33,7 +33,7 @@
 
     function remaining () {
       var count = 0
-      angular.forEach(vm.todos, function (todo) {
+      angular.forEach(vm.todos, function (vm) {
         count += vm.done ? 0 : 1
       })
       return count
@@ -43,7 +43,7 @@
       var oldTodos = vm.todos
       vm.todos = []
       angular.forEach(oldTodos, function (todo) {
-        if (!todo.done) vm.todos.push(vm)
+        if (!todo.done) vm.todos.push(todo)
       })
     }
   }
