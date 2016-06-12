@@ -1,8 +1,8 @@
-(function () {
+(() => {
   'use strict'
 
   angular
-  .module('todo', [])
+  .module('toDo', [])
   .controller('TodoController', TodoController)
   .filter('titleCase', titleCase)
 

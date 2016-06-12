@@ -25,21 +25,21 @@
   </header>
     <section class="container">
     <div class="row">
-        <form ng-submit="todoList.addTodo()">
-          <input type="text" ng-model="todoList.todoText" placeholder="Nueva tarea aquí">
-          <input class="btn-primary" type="submit" value="Añadir" ng-click="todoList.todoText" >
+        <form ng-submit="vm.addTodo()">
+          <input type="text" ng-model="vm.todoText" placeholder="Nueva tarea aquí">
+          <input class="btn-primary" type="submit" value="Añadir" ng-click="vm.todoText" >
         </form>
-        <div class="binding">{{todoList.todoText | titleCase}}</div>
+        <div class="binding">{{vm.todoText | titleCase}}</div>
         <ol>
-            <li ng-repeat="todo in todoList.todos">
+            <li ng-repeat="todo in vm.todos">
               <label class="checkbox">
                 <input type="checkbox" ng-model="todo.done">
                 <span class="done-{{todo.done}}">{{todo.text | titleCase}}</span>
                 <span class="done-true done-false hide"></span>
               </label>
             </li>
-        <span>{{todoList.remaining()}} de {{todoList.todos.length}} tareas por hacer </span>
-        <a href="" ng-click="todoList.archive()">Archivar</a>
+        <span>{{vm.remaining()}} de {{vm.todos.length}} tareas por hacer </span>
+        <a href="" ng-click="vm.archive()">Archivar</a>
         </ol>
     </div>
     </section>
