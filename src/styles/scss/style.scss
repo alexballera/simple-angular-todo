@@ -1,8 +1,10 @@
 @charset "UTF-8";
 
-@import 'vendors/reset',
-'vendors/normalize',
+@import './vendors/reset',
+'./vendors/normalize',
+'../fonts/src/font-awesome',
 './customs/var',
+'./customs/customs',
 './customs/breakpoints';
 
 body{
@@ -72,11 +74,11 @@ ol{
   @include respond-to(xl) {
       font-size: 1.5em;
     }
-    & li label {
-      & span.done-true{
+    & li label span{
+      &.done-true{
       color: $green;
       }
-      & span.done-false{
+      &.done-false{
         color: $red;
       }
     }

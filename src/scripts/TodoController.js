@@ -4,21 +4,7 @@
   angular
   .module('todo', [])
   .controller('TodoController', TodoController)
-  .filter('titleCase', titleCase)
 
-  // .service('todoServices', todoServices)
-
-  // function TodoController (todoServices) {
-  //   this.todos = todoServices.getData()
-  // }
-
-  // function todoServices () {
-  //   return {
-  //     getData: getData
-  //   }
-  // }
-
-  // function getData () {
   function TodoController () {
     var vm = this
 
@@ -50,16 +36,6 @@
         console.log(todo)
         console.log(oldTodos)
       })
-    }
-  }
-
-  // import titleCase from './directives/titleCase'
-
-  function titleCase () {
-    return function (text) {
-      if (text != null) {
-        return text.substring(0, 1).toUpperCase() + text.substring(1)
-      }
     }
   }
 })()
