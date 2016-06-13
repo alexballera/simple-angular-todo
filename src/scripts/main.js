@@ -29,7 +29,7 @@ import angular from 'angular'
     vm.archive = archive
 
     function addTodo () {
-      if (vm.todoText != '') vm.todos.push({text: vm.todoText, done: false})
+      if (vm.todoText !== '') vm.todos.push({text: vm.todoText, done: false})
       vm.todoText = ''
     }
 
