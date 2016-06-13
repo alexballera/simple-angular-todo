@@ -1,9 +1,10 @@
-(function () {
-  'use strict'
+// (function () {
+//   'use strict'
 
   angular
   .module('todo', [])
   .controller('TodoController', TodoController)
+  // .filter('titleCase', titleCase)
 
   function TodoController () {
     var vm = this
@@ -38,4 +39,11 @@
       })
     }
   }
-})()
+  //   function titleCase () {
+  //   return function (text) {
+  //     if (text != null) {
+  //       return text.substring(0, 1).toUpperCase() + text.substring(1)
+  //     }
+  //   }
+  // }
+// })()
