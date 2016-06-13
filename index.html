@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="todo">
+<html lang="en" xmlns:ng="http://angularjs.org" ng-app="toDo">
 <head>
   <meta charset="UTF-8">
   <title>Angular ToDo</title>
@@ -12,7 +12,7 @@
   <!-- endinject -->
   <link rel="stylesheet" href="styles/style.min.css">
 </head>
-  <body ng-controller="TodoController as todoList">
+  <body ng-controller="TodoController as vm">
   <header class="container">
     <div class="row">
       <div class="col-lg-3 col-md-3 col-sm-3">
@@ -43,11 +43,11 @@
         </ol>
     </div>
     </section>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
       <!-- bower:js -->
       <!-- endbower -->
       <!-- inject:js -->
       <!-- endinject -->
+      <script src="scripts/TodoController.js"></script>
       <script src="scripts/main.min.js"></script>
   </body>
 </html>
