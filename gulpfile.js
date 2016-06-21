@@ -22,6 +22,7 @@ const del = require('del')
 const inject = require('gulp-inject')
 const wiredep = require('wiredep').stream
 const deploy = require('gulp-gh-pages')
+const ngAnnotate = require('gulp-ng-annotate')
 // Para que babelify trabaje se debe instalar babel-preset-es2015
 // sudo npm install --save-dev babel-preset-es2015
 
@@ -44,8 +45,8 @@ const globs = {
     dist: './dist/styles'
   },
   scripts: {
-    main: './src/scripts/main.js',
-    watch: './src/scripts/main.js',
+    main: './src/scripts/app.js',
+    watch: './src/scripts/app.js',
     src: './src/scripts',
     build: './build/scripts',
     dist: './dist/scripts'
@@ -128,12 +129,12 @@ gulp.task('build:scripts', () => {
   return browserify(globs.scripts.main)
     .transform(babelify, {presets: 'es2015'})
     .bundle()
-    .pipe(source('main.js'))
+    .pipe(source('app.js'))
     .pipe(buffer())
     .pipe(gulp.dest(globs.scripts.build))
+    .pipe(ngAnnotate())
     .pipe(uglify())
     .pipe(rename({ suffix: '.min' }))
-    .pipe(gulp.dest(globs.scripts.src))
     .pipe(gulp.dest(globs.scripts.build))
     .pipe(gulp.dest(globs.scripts.dist))
 })
@@ -227,6 +228,6 @@ gulp.task('build', ['copy'], () => {
 })
 
 // Default
-gulp.task('default', ['clean'], () => {
+gulp.task('default', () => {
   gulp.start('serve', 'watch', 'build')
 })

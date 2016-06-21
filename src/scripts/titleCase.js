@@ -2,9 +2,8 @@
   'use strict'
 
   angular
-  .module('todo', [])
+  .module('todo')
   .filter('titleCase', titleCase)
-
   function titleCase () {
     return function (text) {
       if (text != null) {

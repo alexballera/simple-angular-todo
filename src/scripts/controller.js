@@ -2,7 +2,7 @@
   'use strict'
 
   angular
-  .module('todo', [])
+  .module('todo')
   .controller('TodoController', TodoController)
 
   function TodoController () {
@@ -14,7 +14,7 @@
     vm.archive = archive
 
     function addTodo () {
-      if (vm.todoText != '') vm.todos.push({text: vm.todoText, done: false})
+      if (vm.todoText !== '') vm.todos.push({text: vm.todoText, done: false})
       vm.todoText = ''
     }
 
@@ -32,7 +32,7 @@
       vm.todos = []
       angular.forEach(oldTodos, function (todo) {
         if (!todo.done) vm.todos.push(todo)
-        else vm.todos.push(oldTodos)
+        // else vm.todos.push(oldTodos)
         console.log(todo)
         console.log(oldTodos)
       })

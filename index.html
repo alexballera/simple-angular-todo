@@ -4,20 +4,20 @@
   <meta charset="UTF-8">
   <title>Angular ToDo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="icon" type="image/png" href="images/icon3.png" />
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="icon" type="image/png" href="images/favicon.ico" />
+  <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> -->
   <!-- bower:css -->
   <!-- endbower -->
   <!-- inject:css -->
   <!-- endinject -->
   <link rel="stylesheet" href="styles/style.min.css">
 </head>
-  <body ng-controller="TodoController as vm">
+  <body ng-controller="TodoController as vm" ng-cloak>
   <header class="container">
     <div class="row">
-      <div class="col-lg-3 col-md-3 col-sm-3">
+      <!-- <div class="col-lg-3 col-md-3 col-sm-3">
         <img src="images/icon3.png" alt="">
-      </div>
+      </div> -->
       <div class="col-lg-9 col-md-9 col-sm-9">
         <h1 class="title">Toma el control de tus tareas!!!</h1>
       </div>
@@ -30,7 +30,7 @@
           <input class="btn-primary" type="submit" value="Añadir" ng-click="vm.todoText" >
         </form>
         <div class="binding">{{vm.todoText | titleCase}}</div>
-        <ol>
+        <ol class="tasks">
             <li ng-repeat="todo in vm.todos">
               <label class="checkbox">
                 <input type="checkbox" ng-model="todo.done">
@@ -38,7 +38,7 @@
                 <span class="done-true done-false hide"></span>
               </label>
             </li>
-        <span>{{vm.remaining()}} de {{vm.todos.length}} tareas por hacer </span>
+        <span class="tasks__binding">{{vm.remaining()}} de {{vm.todos.length}} tareas por hacer </span>
         <a href="" ng-click="vm.archive()">Archivar</a>
         </ol>
     </div>
@@ -47,6 +47,7 @@
       <!-- endbower -->
       <!-- inject:js -->
       <!-- endinject -->
+      <script src='scripts/controller.js'></script>
       <script src="scripts/main.min.js"></script>
   </body>
 </html>

@@ -5,7 +5,8 @@
 '../fonts/src/font-awesome',
 './customs/var',
 './customs/customs',
-'./customs/breakpoints';
+'./customs/breakpoints',
+'../../../node_modules/bootstrap/scss/bootstrap';
 
 body{
   background-color: $black;
@@ -36,7 +37,6 @@ header{
       font-size: 1.5em;
     }
 }
-
 form{
   width: 100%;
   text-align: center;
@@ -101,4 +101,7 @@ ol{
         }
       }
     }
+}
+.tasks__binding{
+  color: lightgrey;
 }
