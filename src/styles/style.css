@@ -7107,8 +7107,8 @@ ol {
     color: lightgray; }
   ol a {
     color: #33B5E5; }
-    ol a:hover, ol a:active, ol a:visited {
-      text-decoration: none; }
+    ol a:hover, ol a:active, ol a:focus, ol a:visited {
+      text-decoration: none !important; }
     ol a::before {
       content: " | ";
       color: #FFBB33;

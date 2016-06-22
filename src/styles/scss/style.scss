@@ -89,8 +89,9 @@ ol{
       color: $blue;
       &:hover,
       &:active,
+      &:focus,
       &:visited{
-        text-decoration: none;
+        text-decoration: none !important;
       }
       &::before {
         content: " | ";
