@@ -1,11 +1,9 @@
-import angular from 'angular'
 (() => {
   'use strict'
 
-  angular
-  .module('toDo', [])
-  .filter('titleCase', titleCase)
-  .controller('TodoController', TodoController)
+angular
+.module('toDo')
+.controller('TodoController', TodoController)
 
   function TodoController () {
     var vm = this
@@ -38,13 +36,6 @@ import angular from 'angular'
         console.log(todo)
         console.log(oldTodos)
       })
-    }
-  }
-  function titleCase () {
-    return function (text) {
-      if (text != null) {
-        return text.substring(0, 1).toUpperCase() + text.substring(1)
-      }
     }
   }
 })()
