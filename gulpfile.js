@@ -201,8 +201,10 @@ gulp.task('copy', () => {
     .pipe(gulp.dest(globs.fonts.dist + '/fonts-mfizz'))
   gulp.src(globs.fonts.src + '/fontawesome/**/*.*') // Comentar si se va a usar el cdnjs
     .pipe(gulp.dest(globs.fonts.dist + '/fontawesome')) // Comentar si se va a usar el cdnjs
-  // gulp.src(globs.scripts.src + '/TodoController.js')
-  //   .pipe(gulp.dest(globs.scripts.dist))
+  gulp.src(globs.scripts.src + '/**/*.*')
+    .pipe(gulp.dest(globs.scripts.dist))
+  gulp.src(globs.src + '/app.js')
+    .pipe(gulp.dest(globs.dist))
 })
 
 // Reload
@@ -224,7 +226,7 @@ gulp.task('watch', () => {
 
 // Build
 gulp.task('build', ['copy'], () => {
-  gulp.start('build:html', 'build:scripts', 'build:images', 'wiredep', 'build:styles')
+  gulp.start('build:html', 'build:images', 'wiredep', 'build:styles')
 })
 
 // Default
