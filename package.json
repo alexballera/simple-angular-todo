@@ -44,6 +44,9 @@
     "imagemin-optipng": "^5.1.0",
     "imagemin-pngquant": "^5.0.0",
     "imagemin-svgo": "^5.1.0",
+    "karma": "^1.0.0",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-jasmine": "^1.0.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "wiredep": "^4.0.0"
