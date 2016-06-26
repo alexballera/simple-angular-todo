@@ -130,7 +130,7 @@ gulp.task('build:scripts', () => {
   return browserify(globs.scripts.main)
     .transform(babelify, {presets: 'es2015'})
     .bundle()
-    .on('error', function(e) { console.log(e.message) })
+    .on('error', function (e) { console.log(e.message) })
     .pipe(source('app.js'))
     .pipe(buffer())
     .pipe(gulp.dest(globs.scripts.build))
@@ -203,8 +203,8 @@ gulp.task('copy', () => {
     .pipe(gulp.dest(globs.fonts.dist + '/fonts-mfizz'))
   gulp.src(globs.fonts.src + '/fontawesome/**/*.*') // Comentar si se va a usar el cdnjs
     .pipe(gulp.dest(globs.fonts.dist + '/fontawesome')) // Comentar si se va a usar el cdnjs
-  // gulp.src(globs.scripts.src + '/TodoController.js')
-  //   .pipe(gulp.dest(globs.scripts.dist))
+  // gulp.src(globs.src + '/components/tasks/controller.js')
+  //   .pipe(gulp.dest(globs.dist + '/components/tasks'))
 })
 
 // Reload
