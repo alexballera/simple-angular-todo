@@ -228,6 +228,6 @@ gulp.task('build', ['copy'], () => {
 })
 
 // Default
-gulp.task('default', () => {
+gulp.task('default', ['clean'], () => {
   gulp.start('serve', 'watch', 'build')
 })
