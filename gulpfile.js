@@ -12,6 +12,7 @@ const source = require('vinyl-source-stream')
 const buffer = require('vinyl-buffer')
 const uglify = require('gulp-uglify')
 const babelify = require('babelify')
+const streamify = require('gulp-streamify')
 const imagemin = require('gulp-imagemin')
 const pngquant = require('imagemin-pngquant')
 const imageminSvgo = require('imagemin-svgo')
@@ -45,11 +46,11 @@ const globs = {
     dist: './dist/styles'
   },
   scripts: {
-    main: './src/scripts/app.js',
-    watch: './src/scripts/app.js',
-    src: './src/scripts',
-    build: './build/scripts',
-    dist: './dist/scripts'
+    main: './src/app.js',
+    watch: './src/app.js',
+    src: './src',
+    build: './build',
+    dist: './dist'
   },
   images: {
     main: './src/images/**',
@@ -129,11 +130,12 @@ gulp.task('build:scripts', () => {
   return browserify(globs.scripts.main)
     .transform(babelify, {presets: 'es2015'})
     .bundle()
+    .on('error', function(e) { console.log(e.message) })
     .pipe(source('app.js'))
     .pipe(buffer())
     .pipe(gulp.dest(globs.scripts.build))
     .pipe(ngAnnotate())
-    .pipe(uglify())
+    .pipe(streamify(uglify()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest(globs.scripts.build))
     .pipe(gulp.dest(globs.scripts.dist))
