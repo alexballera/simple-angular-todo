@@ -19,7 +19,7 @@ angular
     // $scope.archive = archive
 
     $scope.addTodo = function () {
-      $scope.todo.push({text: $scope.newActv, done: false})
+      if ($scope.newActv !== '') $scope.todo.push({text: $scope.newActv, done: false})
       $scope.newActv = ''
     }
 
