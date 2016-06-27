@@ -203,8 +203,6 @@ gulp.task('copy', () => {
     .pipe(gulp.dest(globs.fonts.dist + '/fontawesome')) // Comentar si se va a usar el cdnjs
   gulp.src(globs.scripts.src + '/**/*.*')
     .pipe(gulp.dest(globs.scripts.dist))
-  gulp.src(globs.src + '/app.js')
-    .pipe(gulp.dest(globs.dist))
 })
 
 // Reload
