@@ -46,7 +46,7 @@ const globs = {
   },
   scripts: {
     main: './src/scripts/app.js',
-    watch: './src/scripts/app.js',
+    watch: './src/scripts/**/*.js',
     src: './src/scripts',
     build: './build/scripts',
     dist: './dist/scripts'
