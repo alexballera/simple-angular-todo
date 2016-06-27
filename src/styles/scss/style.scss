@@ -103,6 +103,22 @@ ol{
       }
     }
 }
-.tasks__binding{
-  color: lightgrey;
+.tasks{
+  &__binding{
+    color: lightgrey;
+  }
+  &__clean{
+    color: red;
+    &:hover,
+    &:focus{
+      color: brown;
+    }
+  }
+  &__show{
+    color: lightgreen;
+    &:hover,
+    &:focus{
+      color: darkgreen;
+    }
+  }
 }

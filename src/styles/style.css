@@ -7119,3 +7119,13 @@ ol {
 
 .tasks__binding {
   color: lightgrey; }
+
+.tasks__clean {
+  color: red; }
+  .tasks__clean:hover, .tasks__clean:focus {
+    color: brown; }
+
+.tasks__show {
+  color: lightgreen; }
+  .tasks__show:hover, .tasks__show:focus {
+    color: darkgreen; }
