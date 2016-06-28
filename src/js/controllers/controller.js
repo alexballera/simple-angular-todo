@@ -2,7 +2,7 @@
   'use strict'
 
 angular
-.module('toDo')
+.module('toDo.controllers', [])
 .controller('TodoController', TodoController)
 
   function TodoController ($scope, localStorageService) {
@@ -14,9 +14,6 @@ angular
     $scope.$watchCollection('todo', function (newValue, oldValue) {
       localStorageService.set('todolist', $scope.todo)
     })
-    // $scope.addTodo = addTodo
-    // $scope.remaining = remaining
-    // $scope.archive = archive
 
     $scope.addTodo = function () {
       if ($scope.newActv !== '') $scope.todo.push({text: $scope.newActv, done: false})

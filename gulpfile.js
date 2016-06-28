@@ -44,12 +44,12 @@ const globs = {
     build: './build/styles',
     dist: './dist/styles'
   },
-  scripts: {
-    main: './src/scripts/app.js',
-    watch: './src/scripts/**/*.js',
-    src: './src/scripts',
-    build: './build/scripts',
-    dist: './dist/scripts'
+  js: {
+    main: './src/js/app.js',
+    watch: './src/js/**/*.js',
+    src: './src/js',
+    build: './build/js',
+    dist: './dist/js'
   },
   images: {
     main: './src/images/**',
@@ -124,19 +124,19 @@ gulp.task('uncss', () => {
     .pipe(gulp.dest(globs.styles.dist))
 })
 
-// Scripts: todos los archivos JS concatenados en uno solo minificado
-gulp.task('build:scripts', () => {
-  return browserify(globs.scripts.main)
+// js: todos los archivos JS concatenados en uno solo minificado
+gulp.task('build:js', () => {
+  return browserify(globs.js.main)
     .transform(babelify, {presets: 'es2015'})
     .bundle()
     .pipe(source('app.js'))
     .pipe(buffer())
-    .pipe(gulp.dest(globs.scripts.build))
+    .pipe(gulp.dest(globs.js.build))
     .pipe(ngAnnotate())
     .pipe(uglify())
     .pipe(rename({ suffix: '.min' }))
-    .pipe(gulp.dest(globs.scripts.build))
-    .pipe(gulp.dest(globs.scripts.dist))
+    .pipe(gulp.dest(globs.js.build))
+    .pipe(gulp.dest(globs.js.dist))
 })
 
 // Images
@@ -166,7 +166,7 @@ gulp.task('build:images', () => {
 // Inyectando css y js al index.html
 gulp.task('inject', () => {
   return gulp.src(globs.html.main)
-    .pipe(inject(gulp.src([globs.styles.src + '/style.min.css', globs.scripts.src + '/main.min.js'], {read: false}, {relative: true})))
+    .pipe(inject(gulp.src([globs.styles.src + '/style.min.css', globs.js.src + '/main.min.js'], {read: false}, {relative: true})))
     .pipe(gulp.dest(globs.src))
 })
 
@@ -201,15 +201,15 @@ gulp.task('copy', () => {
     .pipe(gulp.dest(globs.fonts.dist + '/fonts-mfizz'))
   gulp.src(globs.fonts.src + '/fontawesome/**/*.*') // Comentar si se va a usar el cdnjs
     .pipe(gulp.dest(globs.fonts.dist + '/fontawesome')) // Comentar si se va a usar el cdnjs
-  gulp.src(globs.scripts.src + '/**/*.*')
-    .pipe(gulp.dest(globs.scripts.dist))
+  gulp.src(globs.js.src + '/**/*.*')
+    .pipe(gulp.dest(globs.js.dist))
 })
 
 // Reload
 gulp.watch([
   globs.html.watch,
   globs.styles.watch,
-  globs.scripts.watch,
+  globs.js.watch,
   './bower.json'
 ]).on('change', reload)
 
@@ -217,7 +217,7 @@ gulp.watch([
 gulp.task('watch', () => {
   gulp.watch(globs.html.watch, ['build:html'])
   gulp.watch(globs.styles.watch, ['build:styles'])
-  gulp.watch(globs.scripts.watch, ['build:scripts'])
+  gulp.watch(globs.js.watch, ['build:js'])
   gulp.watch(globs.images.watch, ['build:images'])
   gulp.watch(['./bower.json'], ['wiredep', 'copy'])
 })
