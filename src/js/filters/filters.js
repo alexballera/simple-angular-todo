@@ -2,7 +2,7 @@
   'use strict'
 
   angular
-  .module('toDo')
+  .module('toDo.filters', [])
   .filter('titleCase', titleCase)
 
   function titleCase () {
