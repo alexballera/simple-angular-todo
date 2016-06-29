@@ -1,22 +1,41 @@
-    <div class="row" ng-controller="TodoController" ng-cloak>
-        <form ng-submit="addTodo()">
-          <input type="text" ng-model="newActv.text" placeholder="Nueva tarea aquí">
-          <input class="btn-primary" type="submit" value="Añadir" >
+<section id="todoapp">
+    <header id="header">
+        <form id="todo-form" ng-submit="addTodo()">
+            <input id="new-todo" placeholder="Nueva tarea aquí..." ng-model="newTodo" ng-disabled="saving" autofocus>
         </form>
-        <div class="binding">{{newActv.text}}</div>
-        <ol class="tasks">
-            <li ng-repeat="task in todo">
-              <label class="checkbox">
-                <input type="checkbox" ng-model="task.done">
-                <span class="done-{{task.done}}">{{task.text.text | titleCase}}</span>
-                <span class="done-true done-false hide"></span>
-              </label>
+    </header>
+    <section id="main" ng-show="todos.length" ng-cloak>
+        <input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
+        <label for="toggle-all">Limpiar lista</label>
+        <ul id="todo-list">
+            <li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
+                <div class="view">
+                    <input class="toggle" type="checkbox" ng-model="todo.completed" ng-change="toggleCompleted(todo)">
+                    <label ng-dblclick="editTodo(todo)">{{todo.title}}</label>
+                    <button class="destroy" ng-click="removeTodo(todo)"></button>
+                </div>
+                <form ng-submit="saveEdits(todo, 'submit')">
+                    <input class="edit" ng-trim="false" ng-model="todo.title" todo-escape="revertEdits(todo)" ng-blur="saveEdits(todo, 'blur')" todo-focus="todo == editedTodo">
+                </form>
             </li>
-        <span class="tasks__binding">{{remaining()}} de {{todo.length}} tareas por hacer </span>
-        <a href="" ng-click="archive()">Archivar</a>
-        <a href="" ng-click="showTodos()" class="tasks__show">
-        Archivadas</a>
-        <a href="" ng-click="todo = []" class="tasks__clean">
-        Limpiar</a>
-        </ol>
-    </div>
+            <span class="binding">{{newTodo}}</span>
+        </ul>
+    </section>
+    <footer id="footer" ng-show="todos.length" ng-cloak>
+        <span id="todo-count"><strong>{{remainingCount}}</strong>
+            <ng-pluralize count="remainingCount" when="{ one: ' Tarea pendiente', other: ' Tareas pendientes' }"></ng-pluralize>
+        </span>
+        <ul id="filters">
+            <li>
+                <a ng-class="{selected: status == ''} " href="#/">Mostrar todas</a>
+            </li>
+            <li>
+                <a ng-class="{selected: status == 'active'}" href="#/active">Tareas Pendientes</a>
+            </li>
+            <li>
+                <a ng-class="{selected: status == 'completed'}" href="#/completed">Tareas Realizadas</a>
+            </li>
+        </ul>
+        <button id="clear-completed" ng-click="clearCompletedTodos()" ng-show="completedCount">Eliminar Terminadas</button>
+    </footer>
+</section>
