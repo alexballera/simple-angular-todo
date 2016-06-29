@@ -1,48 +1,161 @@
 (() => {
   'use strict'
 
-angular
-.module('toDo.controllers', [])
-.controller('TodoController', TodoController)
+// angular
+// .module('toDo.controllers', [])
+// .controller('TodoController', TodoController)
 
-  function TodoController ($scope, localStorageService) {
-    if (localStorageService.get('todolist')) {
-      $scope.todo = localStorageService.get('todolist')
-    } else {
-      $scope.todo = []
-    }
-    $scope.$watchCollection('todo', function (newValue, oldValue) {
-      localStorageService.set('todolist', $scope.todo)
-    })
+//   function TodoController ($scope, localStorageService) {
+//     if (localStorageService.get('todolist')) {
+//       $scope.todo = localStorageService.get('todolist')
+//     } else {
+//       $scope.todo = []
+//     }
+//     $scope.$watchCollection('todo', function (newValue, oldValue) {
+//       localStorageService.set('todolist', $scope.todo)
+//     })
+
+//     $scope.addTodo = function () {
+//       if ($scope.newActv !== '') $scope.todo.push({text: $scope.newActv, done: false})
+//       $scope.newActv = ''
+//     }
+
+//     $scope.remaining = function () {
+//       var count = 0
+//       angular.forEach($scope.todo, function ($scope) {
+//         count += $scope.done ? 0 : 1
+//       })
+//       return count
+//     }
+
+//     $scope.archive = function () {
+//       var oldtodo = $scope.todo
+//       $scope.todo = []
+//       angular.forEach(oldtodo, function (todo) {
+//         if (!todo.done) $scope.todo.push(todo)
+//       })
+//     }
+
+//     $scope.showTodos = function () {
+//       var oldtodo = $scope.todo
+//       $scope.todo = []
+//       angular.forEach(oldtodo, function (todo) {
+//         if (todo.done) $scope.todo.push(todo)
+//       })
+//     }
+//     console.log($scope.todo)
+//   }
+angular.module('todomvc')
+  .controller('TodoCtrl', function TodoCtrl($scope, $routeParams, $filter, store) {
+    'use strict';
+
+    var todos = $scope.todos = store.todos;
+
+    $scope.newTodo = '';
+    $scope.editedTodo = null;
+
+    $scope.$watch('todos', function () {
+      $scope.remainingCount = $filter('filter')(todos, { completed: false }).length;
+      $scope.completedCount = todos.length - $scope.remainingCount;
+      $scope.allChecked = !$scope.remainingCount;
+    }, true);
+
+    $scope.$on('$routeChangeSuccess', function () {
+      var status = $scope.status = $routeParams.status || '';
+      $scope.statusFilter = (status === 'active') ?
+        { completed: false } : (status === 'completed') ?
+        { completed: true } : {};
+    });
 
     $scope.addTodo = function () {
-      if ($scope.newActv !== '') $scope.todo.push({text: $scope.newActv, done: false})
-      $scope.newActv = ''
-    }
+      var newTodo = {
+        title: $scope.newTodo.trim(),
+        completed: false
+      };
 
-    $scope.remaining = function () {
-      var count = 0
-      angular.forEach($scope.todo, function ($scope) {
-        count += $scope.done ? 0 : 1
-      })
-      return count
-    }
+      if (!newTodo.title) {
+        return;
+      }
 
-    $scope.archive = function () {
-      var oldtodo = $scope.todo
-      $scope.todo = []
-      angular.forEach(oldtodo, function (todo) {
-        if (!todo.done) $scope.todo.push(todo)
-      })
-    }
+      $scope.saving = true;
+      store.insert(newTodo)
+        .then(function success() {
+          $scope.newTodo = '';
+        })
+        .finally(function () {
+          $scope.saving = false;
+        });
+    };
 
-    $scope.showTodos = function () {
-      var oldtodo = $scope.todo
-      $scope.todo = []
-      angular.forEach(oldtodo, function (todo) {
-        if (todo.done) $scope.todo.push(todo)
-      })
-    }
-    console.log($scope.todo)
-  }
+    $scope.editTodo = function (todo) {
+      $scope.editedTodo = todo;
+      $scope.originalTodo = angular.extend({}, todo);
+    };
+
+    $scope.saveEdits = function (todo, event) {
+      if (event === 'blur' && $scope.saveEvent === 'submit') {
+        $scope.saveEvent = null;
+        return;
+      }
+
+      $scope.saveEvent = event;
+
+      if ($scope.reverted) {
+        $scope.reverted = null;
+        return;
+      }
+
+      todo.title = todo.title.trim();
+
+      if (todo.title === $scope.originalTodo.title) {
+        $scope.editedTodo = null;
+        return;
+      }
+
+      store[todo.title ? 'put' : 'delete'](todo)
+        .then(function success() {}, function error() {
+          todo.title = $scope.originalTodo.title;
+        })
+        .finally(function () {
+          $scope.editedTodo = null;
+        });
+    };
+
+    $scope.revertEdits = function (todo) {
+      todos[todos.indexOf(todo)] = $scope.originalTodo;
+      $scope.editedTodo = null;
+      $scope.originalTodo = null;
+      $scope.reverted = true;
+    };
+
+    $scope.removeTodo = function (todo) {
+      store.delete(todo);
+    };
+
+    $scope.saveTodo = function (todo) {
+      store.put(todo);
+    };
+
+    $scope.toggleCompleted = function (todo, completed) {
+      if (angular.isDefined(completed)) {
+        todo.completed = completed;
+      }
+      store.put(todo, todos.indexOf(todo))
+        .then(function success() {}, function error() {
+          todo.completed = !todo.completed;
+        });
+    };
+
+    $scope.clearCompletedTodos = function () {
+      store.clearCompleted();
+    };
+
+    $scope.markAll = function (completed) {
+      todos.forEach(function (todo) {
+        if (todo.completed !== completed) {
+          $scope.toggleCompleted(todo, completed);
+        }
+      });
+    };
+  });
 })()
